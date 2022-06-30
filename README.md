@@ -19,3 +19,16 @@
     $ npm run dev "probamos los endpoints en insomnia"
     ```
   - Dentro de insomnia podemos manejar tipos de ambientes "prod" y "dev"
+
+## Middleware de verificación
+  Se crea un middleware para hacer verificaciones. es decir, una capa de autenticación.
+  El middleware tendrá al siguiente lógica:
+
+  ```javascript
+  if (req.headers['api'] === '123') {
+    next();
+  } else {
+    next(boom.unauthorized());
+  }
+  ```
+  Es decir, en los headers se enviará una api con un valor (api key) que deberá ser igual a un valor o una variable que esté manejada por las variables de entorno. Si todo es correcto hará next(), es decir, dejamos que ingrese a la capa de servicios o ejecutar los siguientes middlewares, de lo contrario arrojará un error unauthorized.
