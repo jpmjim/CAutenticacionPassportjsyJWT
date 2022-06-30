@@ -39,3 +39,6 @@
   Instalar bcrypt: "npm i bcrypt"
 
   Para hashear una contraseña usando bcrypt se hace el uso de la función .hash(), esta función recibe como primer parámetro la contraseña y después el número de salt. Esta función devuelve una promesa que se puede manejar con async/await
+
+## Implementando hashing para usuarios
+  Para que no se vean las contraseñas al momento de hacer GET de los clientes y de los usuarios, debemos de excluir ese atributo mediante Sequelize. Se realiza de la siguiente manera dentro de nuestros métodos find y findOne del archivo "user.service.js" y "customers.service.js"
