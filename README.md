@@ -42,3 +42,9 @@
 
 ## Implementando hashing para usuarios
   Para que no se vean las contraseñas al momento de hacer GET de los clientes y de los usuarios, debemos de excluir ese atributo mediante Sequelize. Se realiza de la siguiente manera dentro de nuestros métodos find y findOne del archivo "user.service.js" y "customers.service.js"
+
+## Implemetando login con Passport.js
+  Passport.js es una serie de librerías y estrategias que nos brinda para hacer la capa de autenticación, permite generar varias estrategias (twitter, github, facebook, etc.) teniendo un código base para logearnos de diferentes maneras.
+  Página "https://www.passportjs.org/"
+  - Instalando passport: npm i passport
+  - passport-local permite hacer un login básico usando username y password, su instalación es: npm install passport-local
