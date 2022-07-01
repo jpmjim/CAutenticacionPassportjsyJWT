@@ -59,3 +59,47 @@
     Autorización: este es el escenario más común para usar JWT. Una vez que el usuario haya iniciado sesión, cada solicitud posterior incluirá el JWT, lo que le permitirá acceder a rutas, servicios y recursos que están autorizados con ese token. El inicio de sesión único es una función que se utiliza ampliamente con JWT en la actualidad, debido a su pequeña sobrecarga y su capacidad para usarse fácilmente en diferentes dominios o servidores distribuidos.
 
     Intercambio de información: los JWT son una buena forma de transmitir información de forma segura entre varias partes. Debido a que los JWT se pueden firmar, por ejemplo, utilizando pares de claves públicas / privadas, se puede estar seguro de que los remitentes son quienes dicen ser. Además, como la firma se calcula utilizando las cabeceras y el payload, también se puede verificar que el contenido no haya sido manipulado.
+
+## Firmar y verificar tokens
+  Instalación de JSON Web Token: 
+  ```bash
+  npm i jsonwebtoken
+  ```
+  Para los refresh tokens hay que definir un tiempo de expiración, eso se puede lograr pasando un tercer argumento de configuración a la función sign.
+
+  Documentación para refresh del token: "https://auth0.com/docs/login/configure-silent-authentication" y "https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/"
+  Para hacer que expire el token después de un cierto tiempo sería:
+
+  ```javascript
+  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN
+  });
+  ```
+  o
+
+  ```javascript
+  const jwt = require('jsonwebtoken')
+
+const jwtConfig = {
+  expiresIn: '7d',
+};
+const payload = {
+  sub: user.id,
+  role: "customer"
+}
+
+const token = jwt.sign(payload, process.env.JWTSECRET, jwtConfig)
+```
+
+Observaciones:
+
+User es la instancia del usuario obtenido del modelo que tenga la propiedad Id del usuario.
+Se utiliza sub por conveniencia porque así lo maneja el standar de JWT pero puede usarse el nombre que uno quiera mas info sobre los claims disponibles aquí
+
+si en expiresIn se pone sólo número entonces lo considera en segundo, pero si es un string entonces deberá llevar la unidad para definir el tiempo de expiración, ejemplo:
+
+60 * 60 === '1h’
+60 * 60 * 24 === ‘1d’
+
+pero si por accidente se pone un string sin unidad de tiempo entonces lo tomará como milisegundos:
+“60” === “60ms”
