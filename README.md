@@ -103,3 +103,7 @@ si en expiresIn se pone sólo número entonces lo considera en segundo, pero si 
 
 pero si por accidente se pone un string sin unidad de tiempo entonces lo tomará como milisegundos:
 “60” === “60ms”
+
+## Generar JWT en el servicio
+  Al implementar JWT ya no es necesario enviar los datos del usuario en la petición, ya que por medio del payload del token podemos enviarla, ademas recordar que por ningún motivo se debe enviar informacion sensible del usuario.
+  Para generar nuestro SECRET nos vamos a "https://www.allkeysgenerator.com/" o "http://keygen.io/" donde lo añadiremos en nuestras varibles de entorno.
