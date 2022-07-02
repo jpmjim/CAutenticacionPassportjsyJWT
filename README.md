@@ -198,4 +198,26 @@ pero si por accidente se pone un string sin unidad de tiempo entonces lo tomará
   ```
 ## Implementando el envío de emails
   Debido a que hay mucha lógica regada sobre autenticación, se crea un nuevo servicio para auth y hacer esto más mantenible.
-  auth.service.js, el método getUser contiene la lógica para autenticar un usuario, signToken contiene la lógica para firmar un token y sendMail contiene la lógica para enviar un email 
+  auth.service.js, el método getUser contiene la lógica para autenticar un usuario, signToken contiene la lógica para firmar un token y sendMail contiene la lógica para enviar un email.
+
+## Generando links de recuperación
+  Se reacomoda un poco el servicio auth.service.js haciendo una separación de responsabilidades, se crea el método sendRecovery el cual contiene la lógica para generar un link para recuperar la contraseña y el método sendMail contiene la configuración para poder enviar un email (transporter).
+
+  Lo que hace es:
+  - Validar si el email se encuentra en la base de datos, si todo bien, se obtiene el user.
+  - Se genera un payload con el user.id.
+  - Se genera un token que expira en 15 minutos, incluye el payload con el id del usuario que solicita recuperar su contraseña. Por seguridad, el token debe guardarse en la BD y comprobarlo para evitar que envíen un token indeseado.
+  - Se genera un link que incluye el token necesario para recuperar la contraseña. Desde el frontend debe haber una vista para ello.
+  - Se llama el método update de UserService para actualizar los datos del usuario asignandole el token generado.
+  - Se establece el cuerpo del email.
+  - Se ejecuta el método sendMail que recibe el cuerpo del email.
+
+  Migracion del nuevo campo:
+  ```bash
+  npm run migrations:generate recovery-token-field
+  ```
+  Después de tener el boilerplate listo y haber modificado el modelo de usuario, se corre la migración con:
+
+  ```bash
+  npm run migrations:run
+  ```
