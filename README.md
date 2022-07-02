@@ -121,3 +121,35 @@ pero si por accidente se pone un string sin unidad de tiempo entonces lo tomará
   ```javascript
   router.use('/categories', passport.authenticate('jwt', { session: false }), categoriesRouter);
   ```
+## Control de roles
+  Gestion de permisos en cada respectivo rol dentro de la aplicación.
+  Para crear un control de roles, un middleware será nuestro mejor amigo
+  En primer lugar, pensemos en lo que necesitamos, necesitamos un middleware capaz de verificar qué tipo de usuarios están autenticados, para esto, creemos una sola función, que recibirá una lista de roles y devolverá un middleware. "Dentro del  proyecto tenemos un gestion basica"
+
+  Debemos utilizar accesscontrol para mas avanzado en gestion de permisos
+  "npm i accesscontrol --save"
+  https://www.npmjs.com/package/accesscontrol
+  ```javascript
+  const accessControl = require('accesscontrol');
+  const ac = accessControl({
+    debug: true,
+    mode: 'restrictive',
+    ownerField: 'owner',
+    owner: 'admin',
+    defaultRole: 'guest',
+    roles: [
+      {
+        name: 'guest',
+        inherit: ['read'],
+      },
+      {
+        name: 'user',
+        inherit: ['read', 'create', 'update'],
+      },
+      {
+        name: 'admin',
+        inherit: ['read', 'create', 'update', 'delete'],
+      },
+    ],
+  });
+  ```
