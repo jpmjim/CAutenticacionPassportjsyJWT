@@ -222,3 +222,13 @@ pero si por accidente se pone un string sin unidad de tiempo entonces lo tomará
   npm run migrations:run
   ```
 ## Validando tokens para cambio de contraseña
+
+## Deploy en heroku
+  Nos movemos a una nueva rama "git checkout -b production"
+  Luego aladimos el remote de heroku "heroku git:remote -a curso-autenticacion"
+  Verificamos el remote "git remote -v"
+  Tener un borrado de migraciones "heroku run npm run migrations:delete"
+  Enviamos nuestras varibles de entorno con "heroku config:set API_KEY=79823 JWT_SECRET=D8357C18093C4954BD34007C39AD5D06 SMTP_EMAIL=jpmjim@gmail.com SMTP_PASSWORD=nsvsnqxkhgvsyztj"
+  Hacemos un push "git push heroku production:main"
+  Corremos postgres en heroku antes de la migrations "heroku addons:create heroku-postgresql:hobby-dev"
+  Corremos nuestras migraciones "heroku run npm run migrations:run"
