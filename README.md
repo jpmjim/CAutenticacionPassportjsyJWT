@@ -153,3 +153,9 @@ pero si por accidente se pone un string sin unidad de tiempo entonces lo tomará
     ],
   });
   ```
+
+## Obteniendo órdenes del perfil
+  Para poder ver las órdenes de compra de un usuario podemos usar el token que tiene, obtener el sub y obtener la información directamente sin necesidad de enviar el ID del usuario.
+
+  Se crea un nuevo método en el servicio orders, el método findByUser recibe el userId y realiza una consulta respecto a éste donde se incluye la asociación de user y customer, y se desea obtener el id del customer ya que únicamente se cuenta con el id de usuario, es por ello que se utiliza where: {'$customer.user.id$': userId}, es decir, le estamos diciendo a qué asociaciones estamos haciendo la consulta.
+  Más información sobre este tipo de consultas https://sequelize.org/master/manual/eager-loading.html#complex-where-clauses-at-the-top-level
