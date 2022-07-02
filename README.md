@@ -221,3 +221,4 @@ pero si por accidente se pone un string sin unidad de tiempo entonces lo tomará
   ```bash
   npm run migrations:run
   ```
+## Validando tokens para cambio de contraseña
