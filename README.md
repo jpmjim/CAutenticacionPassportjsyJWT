@@ -196,3 +196,6 @@ pero si por accidente se pone un string sin unidad de tiempo entonces lo tomará
     }
   });
   ```
+## Implementando el envío de emails
+  Debido a que hay mucha lógica regada sobre autenticación, se crea un nuevo servicio para auth y hacer esto más mantenible.
+  auth.service.js, el método getUser contiene la lógica para autenticar un usuario, signToken contiene la lógica para firmar un token y sendMail contiene la lógica para enviar un email 
