@@ -107,3 +107,17 @@ pero si por accidente se pone un string sin unidad de tiempo entonces lo tomará
 ## Generar JWT en el servicio
   Al implementar JWT ya no es necesario enviar los datos del usuario en la petición, ya que por medio del payload del token podemos enviarla, ademas recordar que por ningún motivo se debe enviar informacion sensible del usuario.
   Para generar nuestro SECRET nos vamos a "https://www.allkeysgenerator.com/" o "http://keygen.io/" donde lo añadiremos en nuestras varibles de entorno.
+
+## Protección de rutas
+  Documentación de la clase "https://www.passportjs.org/packages/passport-jwt/"
+  Instalación 
+  ```bash
+  npm i passport-jwt
+  ```
+  Este módulo le permite autenticar puntos finales mediante un token web JSON. Está destinado a ser utilizado para asegurar puntos finales RESTful sin sesiones.
+
+  Reto progeter las demas rutas con JWT
+  Una forma para proteger todas las rutas de /categories sin agregar el middleware en cada uno de los métodos.
+  ```javascript
+  router.use('/categories', passport.authenticate('jwt', { session: false }), categoriesRouter);
+  ```
