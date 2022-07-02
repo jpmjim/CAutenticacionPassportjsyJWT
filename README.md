@@ -159,3 +159,40 @@ pero si por accidente se pone un string sin unidad de tiempo entonces lo tomará
 
   Se crea un nuevo método en el servicio orders, el método findByUser recibe el userId y realiza una consulta respecto a éste donde se incluye la asociación de user y customer, y se desea obtener el id del customer ya que únicamente se cuenta con el id de usuario, es por ello que se utiliza where: {'$customer.user.id$': userId}, es decir, le estamos diciendo a qué asociaciones estamos haciendo la consulta.
   Más información sobre este tipo de consultas https://sequelize.org/master/manual/eager-loading.html#complex-where-clauses-at-the-top-level
+
+## Cómo enviar emails con Node.js
+  Para hacer la recuperación de contraseñas se utilizará la librería Nodemailer, el comando de instalación es npm install nodemailer.
+  Pag:"http://nodemailer.com/about/"
+  Instalación
+  ```bash
+  npm install nodemailer
+  ```
+  Ejecutamos desde la temrinal "node nodemailer.js"
+
+  Ethereal: "https://ethereal.email/" El servicio de correo se usa para enviar correos electrónicos, es un servicio gratuito que le brinda una dirección de correo electrónico que puede usar para enviar correos electrónicos desde su aplicación.
+
+  Para enviar emails se utiliza la función sendMail, la cual recibe como argumento un objeto con la información del email.
+
+  ```javascript
+  const nodemailer = require('nodemailer');
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: '
+      password: '
+    }
+  });
+  const mailOptions = {
+    from: '
+    to: '
+    subject: '
+    text: '
+  };
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+  ```
