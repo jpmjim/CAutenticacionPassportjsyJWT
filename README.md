@@ -232,3 +232,5 @@ pero si por accidente se pone un string sin unidad de tiempo entonces lo tomará
   Hacemos un push "git push heroku production:main"
   Corremos postgres en heroku antes de la migrations "heroku addons:create heroku-postgresql:hobby-dev"
   Corremos nuestras migraciones "heroku run npm run migrations:run"
+  
+  cambiar heroku    
